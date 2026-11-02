@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173f2b">
+  <meta name="description" content="দেশি বাজারের পণ্যের বিস্তারিত দেখুন এবং সহজেই অর্ডার করুন।">
+
+  <title>পণ্যের বিস্তারিত | দেশি বাজার</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container nav-wrap">
+
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="দেশি বাজার লোগো" class="brand-logo">
+      <span class="brand-text">
+        দেশি বাজার
+        <small>খাঁটি পণ্যের বিশ্বস্ত ঠিকানা</small>
+      </span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="মেনু" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html#home">হোম</a>
+      <a href="index.html#products">পণ্যসমূহ</a>
+      <a href="index.html#about">আমাদের সম্পর্কে</a>
+      <a href="index.html#contact">যোগাযোগ</a>
+    </nav>
+
+    <a class="nav-cta" href="index.html#products">
+      আরও পণ্য দেখুন <span>↗</span>
+    </a>
+
+  </div>
+</header>
+
+<main class="product-page">
+
+  <div class="container">
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+      <a href="index.html">হোম</a>
+      <span>/</span>
+      <a href="index.html#products">পণ্যসমূহ</a>
+      <span>/</span>
+      <span id="breadcrumbProduct">পণ্যের বিস্তারিত</span>
+    </div>
+
+    <!-- LOADING / ERROR -->
+    <div class="status-message product-status" id="productStatus">
+      পণ্যের তথ্য লোড হচ্ছে...
+    </div>
+
+    <!-- PRODUCT DETAIL -->
+    <div id="productPageContent" class="product-detail-layout" hidden>
+
+      <!-- LEFT: IMAGE -->
+      <div class="detail-gallery">
+
+        <div class="detail-image-wrap">
+          <div class="detail-image-top-label">
+            <span class="detail-live-dot"></span>
+            দেশি বাজারের সংগ্রহ
+          </div>
+
+          <img id="detailImage" src="" alt="">
+
+          <div class="detail-image-bottom">
+            <span>✦</span>
+            যত্নে বাছাই করা পণ্য
+          </div>
+        </div>
+
+        <div class="detail-trust-row">
+          <div>
+            <span class="mini-trust-icon">✓</span>
+            <span>বাছাইকৃত পণ্য</span>
+          </div>
+          <div>
+            <span class="mini-trust-icon">✓</span>
+            <span>সহজ অর্ডার</span>
+          </div>
+          <div>
+            <span class="mini-trust-icon">✓</span>
+            <span>হোম ডেলিভারি</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: PRODUCT INFORMATION -->
+      <div class="detail-info">
+
+        <div class="detail-category">
+          <span></span>
+          দেশি বাজার / পণ্যের বিস্তারিত
+        </div>
+
+        <h1 id="detailName"></h1>
+
+        <p class="detail-description" id="detailDescription"></p>
+
+        <div class="detail-price-box">
+          <span class="detail-price-label">পণ্যের মূল্য</span>
+          <div class="detail-price" id="detailPrice"></div>
+          <small>প্রতি কেজির মূল্য</small>
+        </div>
+
+        <div class="product-meta" id="detailProductInfo"></div>
+
+        <!-- ORDER PANEL -->
+        <section class="order-panel" id="order">
+
+          <div class="order-panel-heading">
+            <span class="section-eyebrow">PLACE YOUR ORDER</span>
+            <h2>আপনার অর্ডার সম্পন্ন করুন</h2>
+            <p>সঠিক তথ্য দিয়ে নিচের ফর্মটি পূরণ করুন।</p>
+          </div>
+
+          <form id="orderForm">
+
+            <!-- QUANTITY -->
+            <div class="quantity-section">
+
+              <div class="field-heading">
+                <label for="quantity">পণ্যের পরিমাণ</label>
+                <span>কেজিতে নির্ধারণ করুন</span>
+              </div>
+
+              <div class="quantity-control">
+                <button type="button" id="qtyMinus" aria-label="পরিমাণ কমান">−</button>
+
+                <input
+                  id="quantity"
+                  name="quantity"
+                  type="number"
+                  min="0.5"
+                  max="100"
+                  step="0.5"
+                  value="1"
+                  required>
+
+                <button type="button" id="qtyPlus" aria-label="পরিমাণ বাড়ান">+</button>
+              </div>
+
+              <p class="quantity-hint" id="minimumNote">
+                ন্যূনতম অর্ডারের পরিমাণ প্রযোজ্য।
+              </p>
+
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- CUSTOMER DETAILS -->
+            <div class="form-section-heading">
+              <span class="form-step">01</span>
+              <div>
+                <h3>আপনার তথ্য</h3>
+                <p>যোগাযোগের জন্য প্রয়োজনীয় তথ্য দিন।</p>
+              </div>
+            </div>
+
+            <div class="form-grid">
+
+              <div class="form-field">
+                <label for="customerName">আপনার নাম <span>*</span></label>
+                <input
+                  id="customerName"
+                  name="name"
+                  type="text"
+                  maxlength="100"
+                  placeholder="সম্পূর্ণ নাম লিখুন"
+                  autocomplete="name"
+                  required>
+              </div>
+
+              <div class="form-field">
+                <label for="customerPhone">মোবাইল নম্বর <span>*</span></label>
+                <input
+                  id="customerPhone"
+                  name="phone"
+                  type="tel"
+                  inputmode="tel"
+                  maxlength="20"
+                  placeholder="01XXXXXXXXX"
+                  autocomplete="tel"
+                  required>
+              </div>
+
+              <div class="form-field full-field">
+                <label for="deliveryArea">ডেলিভারি এলাকা <span>*</span></label>
+
+                <select id="deliveryArea" name="area" required>
+                  <option value="dhaka">ঢাকার মধ্যে</option>
+                  <option value="outside">ঢাকার বাইরে</option>
+                </select>
+              </div>
+
+              <div class="form-field full-field">
+                <label for="customerAddress">সম্পূর্ণ ঠিকানা <span>*</span></label>
+
+                <textarea
+                  id="customerAddress"
+                  name="address"
+                  rows="3"
+                  maxlength="500"
+                  placeholder="বাসা/রোড, এলাকা, উপজেলা/থানা, জেলা লিখুন"
+                  autocomplete="street-address"
+                  required></textarea>
+              </div>
+
+            </div>
+
+            <div class="form-divider"></div>
+
+            <!-- ORDER SUMMARY -->
+            <div class="form-section-heading">
+              <span class="form-step">02</span>
+              <div>
+                <h3>অর্ডারের হিসাব</h3>
+                <p>আপনার অর্ডারের আনুমানিক মূল্য।</p>
+              </div>
+            </div>
+
+            <div class="order-summary">
+
+              <div class="summary-row">
+                <span>পণ্যের মূল্য</span>
+                <b id="summarySubtotal">৳০</b>
+              </div>
+
+              <div class="summary-row">
+                <span>ডেলিভারি চার্জ</span>
+                <b id="summaryDelivery">৳০</b>
+              </div>
+
+              <div class="summary-total">
+                <span>সর্বমোট</span>
+                <strong id="summaryTotal">৳০</strong>
+              </div>
+
+            </div>
+
+            <!-- HONEYPOT -->
+            <input
+              type="text"
+              id="website"
+              name="website"
+              class="honeypot"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true">
+
+            <!-- SUBMIT -->
+            <button
+              class="btn btn-primary order-submit"
+              id="submitOrder"
+              type="submit">
+
+              <span>অর্ডার নিশ্চিত করুন</span>
+              <span class="submit-arrow">→</span>
+
+            </button>
+
+            <p class="form-note">
+              অর্ডার জমা দেওয়ার পর প্রয়োজনে আমাদের প্রতিনিধি
+              আপনার সঙ্গে যোগাযোগ করবেন।
+            </p>
+
+            <div
+              class="form-message"
+              id="orderMessage"
+              role="status"
+              aria-live="polite"
+              hidden></div>
+
+            <div
+              class="confirmation-card"
+              id="orderConfirmation"
+              hidden></div>
+
+          </form>
+
+        </section>
+
+      </div>
+
+    </div>
+
+    <!-- RELATED PRODUCTS -->
+    <section class="related-section">
+
+      <div class="section-heading">
+        <div>
+          <span class="section-eyebrow">EXPLORE MORE</span>
+          <h2>আরও কিছু <em>পণ্য দেখুন</em></h2>
+          <p>আপনার পছন্দের আরও পণ্য ঘুরে দেখুন।</p>
+        </div>
+
+        <a href="index.html#products" class="related-all-link">
+          সব পণ্য দেখুন →
+        </a>
+      </div>
+
+      <div class="product-grid" id="relatedProducts"></div>
+
+    </section>
+
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+
+    <div class="footer-main">
+
+      <a class="brand footer-brand" href="index.html">
+        <img src="assets/logo.png" alt="দেশি বাজার লোগো" class="brand-logo">
+        <span class="brand-text">
+          দেশি বাজার
+          <small>খাঁটি পণ্যের বিশ্বস্ত ঠিকানা</small>
+        </span>
+      </a>
+
+      <p class="footer-description">
+        বাছাইকৃত দেশি পণ্য, সহজ অর্ডার এবং
+        আপনার ঘরে পৌঁছে দেওয়ার নির্ভরযোগ্য আয়োজন।
+      </p>
+
+      <a href="index.html#home" class="footer-top-link">
+        হোমে ফিরুন ↑
+      </a>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© <span id="currentYear"></span> দেশি বাজার। সর্বস্বত্ব সংরক্ষিত।</p>
+      <span>Made with care in Bangladesh</span>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
